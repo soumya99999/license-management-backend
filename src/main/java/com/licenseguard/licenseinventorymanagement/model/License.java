@@ -48,7 +48,4 @@ public class License {
     private String complianceStatus; // calculated or manual
 
     private String notes;
-
-    @Lob
-    private byte[] documentUpload; // store uploaded license file as byte array
 }

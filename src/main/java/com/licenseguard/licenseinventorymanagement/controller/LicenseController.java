@@ -44,31 +44,31 @@ public class LicenseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<License> updateLicense(@PathVariable Long id, @RequestBody License licenseDetails) {
-        Optional<License> optionalLicense = licenseService.getLicenseById(id);
-        if (optionalLicense.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        License license = optionalLicense.get();
-        license.setDepartment(licenseDetails.getDepartment());
-        license.setSoftwareName(licenseDetails.getSoftwareName());
-        license.setLicenseName(licenseDetails.getLicenseName());
-        license.setLicenseType(licenseDetails.getLicenseType());
-        license.setLicenseKey(licenseDetails.getLicenseKey());
-        license.setEntitlements(licenseDetails.getEntitlements());
-        license.setPurchaseDate(licenseDetails.getPurchaseDate());
-        license.setExpirationDate(licenseDetails.getExpirationDate());
-        license.setRenewalDate(licenseDetails.getRenewalDate());
-        license.setAssignedUser(licenseDetails.getAssignedUser());
-        license.setLicenseStatus(licenseDetails.getLicenseStatus());
-        license.setInstallationCount(licenseDetails.getInstallationCount());
-        license.setComplianceStatus(licenseDetails.getComplianceStatus());
-        license.setNotes(licenseDetails.getNotes());
-        license.setDocumentUpload(licenseDetails.getDocumentUpload());
-
-        License updatedLicense = licenseService.saveLicense(license);
-        return ResponseEntity.ok(updatedLicense);
+public ResponseEntity<License> updateLicense(@PathVariable Long id, @RequestBody License licenseDetails) {
+    Optional<License> optionalLicense = licenseService.getLicenseById(id);
+    if (optionalLicense.isEmpty()) {
+        return ResponseEntity.notFound().build();
     }
+
+    License license = optionalLicense.get();
+
+    // Do NOT update: licenseName, licenseType, licenseKey
+    license.setDepartment(licenseDetails.getDepartment());
+    license.setSoftwareName(licenseDetails.getSoftwareName());
+    license.setEntitlements(licenseDetails.getEntitlements());
+    license.setPurchaseDate(licenseDetails.getPurchaseDate());
+    license.setExpirationDate(licenseDetails.getExpirationDate());
+    license.setRenewalDate(licenseDetails.getRenewalDate());
+    license.setAssignedUser(licenseDetails.getAssignedUser());
+    license.setLicenseStatus(licenseDetails.getLicenseStatus());
+    license.setInstallationCount(licenseDetails.getInstallationCount());
+    license.setComplianceStatus(licenseDetails.getComplianceStatus());
+    license.setNotes(licenseDetails.getNotes());
+
+    License updatedLicense = licenseService.saveLicense(license);
+    return ResponseEntity.ok(updatedLicense);
+}
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLicense(@PathVariable Long id) {
